@@ -1,4 +1,4 @@
-# 视觉拆解、英文 Prompt 与祝福模板（V8.5）
+# 林爻3D贺卡 · 视觉拆解、英文 Prompt 与祝福模板（V8.6）
 
 > 铁律：参考图仅提画风、纸纹与配色，严禁贴原图或写真感。全套同师手绘、哑光 300g 水彩纸本、60-30-10 自然配色。
 
@@ -29,8 +29,8 @@
    - 横 3:2（`inside_raw.png`）：`Wide 3:2 flat inside spread in {art_medium_en} matching cover. Lush {decorative_motifs_en} outer borders, middle 55% soft pale distant scenery and path on {paper_texture_en}. Flat 2D full-bleed; NO people/cake/tree/text.`
    - 上下 2:3（`inside_vertical_raw.png`）：`Vertical 2:3 continuous flat spread (folds across middle into upper/lower 4:3 halves) in {art_medium_en} matching cover. Lush {decorative_motifs_en} outer edges, central 55% misty sky above flowing smoothly into pale path below. Flat 2D full-bleed; NO people/cake/tree/text.`
    - 上下拆页备选：`inside_top.png`（4:3 上页底边柔和）+ `inside_bottom.png`（4:3 下页顶边顺接上页）。
-4. **拱门**（4:3 纯白底 `arch_raw.png`）
-   - `Semicircular botanical pop-up archway in {art_medium_en} woven with {decorative_motifs_en}. Crisp hand-lettered "HAPPY BIRTHDAY" (or "MERRY CHRISTMAS") along top arc with two subtle balloons (or baubles) top-right. Broad flat feet on ONE horizontal baseline. Pure #FFFFFF outside AND inside arch hole, zero shadows/specks.`
+4. **拱门**（4:3 宽幅纯白底 `arch_raw.png`）
+   - `WIDE broad 4:3 landscape semicircular botanical pop-up archway (clearly wider than tall, spanning edge-to-edge horizontally) in {art_medium_en} woven with {decorative_motifs_en}. Crisp hand-lettered "HAPPY BIRTHDAY" (or "MERRY CHRISTMAS") along top arc with two subtle balloons (or baubles) top-right. Broad flat feet on ONE horizontal baseline. Pure #FFFFFF outside AND inside open arch hole, zero shadows/specks.`
 5. **道具**（3:4 纯白底）
    - 生日蛋糕（`cake_raw.png`）：`Upright hand-painted {art_medium_en} standee of ONLY a low rustic round wooden table centered under a two-tier frosted birthday cake with subtle fruit matching cover palette. ONE tall straight vertical colorful striped candle centered on very top tier ending in a short unlit dark cotton wick. STRICTLY NO chair, NO stool, NO floral arch/wreath/canopy, NO fire/flame; single candle tip MUST be the solitary highest peak. Flat legs on one baseline. Pure #FFFFFF background, zero shadows/specks.`
    - 圣诞树（`tree_raw.png`）：`Upright hand-painted {art_medium_en} standee of a conical miniature Christmas tree in a flat wooden pot with vintage red/gold baubles, berries, ribbons, pinecones, bright golden 5-point star at top peak, two tiny gifts at flat pot base. Pure #FFFFFF background, zero snow dots, NO cake/candles.`

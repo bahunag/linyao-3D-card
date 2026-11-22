@@ -1,4 +1,4 @@
-"""立体贺卡纯本地刀模抠图与母版打包器(V8.5,仅Pillow,零联网)"""
+"""林爻3D贺卡纯本地刀模抠图与母版打包器(V8.6,仅Pillow,零联网)"""
 import argparse as ag,base64 as b64,colorsys as cs,hashlib as hl,io,json,math,os,random as rd,re,sys,uuid
 from collections import deque
 from pathlib import Path

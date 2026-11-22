@@ -28,12 +28,16 @@ function stopMic(){
   if(mOn&&mCtx&&mG)try{mG.gain.setTargetAtTime(MG,mCtx.currentTime,.08);}catch{}
   E.mf.style.width='5%';if(!blw)flWind(0,0);syncUI();
 }
-/** 安全申请麦克风并识别嵌套预览壳权限拦截 */
+/** 判断外层嵌套窗口策略是否已禁用麦克风，避免在预览壳中弹出无效授权框 */
+const inFr=(()=>{try{return window.self!==window.top;}catch{return true;}})();
+function frBlk(){if(!inFr)return false;try{const p=document.permissionsPolicy||document.featurePolicy;if(p&&typeof p.allowsFeature==='function'&&!p.allowsFeature('microphone'))return true;}catch{}return false;}
+/** 安全申请麦克风并识别嵌套预览壳策略拦截 */
 async function reqMic(sid,ms=M_TO){
   if(!window.isSecureContext||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){mBlk='env';return null;}
+  if(frBlk()){mDn=true;mBlk='iframe';return null;}
   if(mDn)return null;
-  let to=false,tm=null;const inF=(()=>{try{return window.self!==window.top;}catch{return true;}})();
-  const mk=e=>{if(['NotAllowedError','PermissionDeniedError','SecurityError'].includes((e&&e.name)||'')){mDn=true;mBlk=inF?'iframe':'denied';}};
+  let to=false,tm=null;
+  const mk=e=>{if(['NotAllowedError','PermissionDeniedError','SecurityError'].includes((e&&e.name)||'')){mDn=true;mBlk=inFr?'iframe':'denied';}};
   const ask=async()=>{
     try{return await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,googEchoCancellation:false,googNoiseSuppression:false,googAutoGainControl:false,googHighpassFilter:false}});}
     catch(e){mk(e);if(!['OverconstrainedError','ConstraintNotSatisfiedError','TypeError'].includes((e&&e.name)||'')||to||sid!==mId)return null;try{return await navigator.mediaDevices.getUserMedia({audio:true});}catch(e2){mk(e2);return null;}}
@@ -132,10 +136,12 @@ function syncUI(){
 }
 syncUI();
 
-/** 翻开/合上贺卡，含麦克风预授权与受限预览壳提示 */
+/** 翻开/合上贺卡，含麦克风预授权与预览壳无打扰降级引导 */
 async function togCard(){
   if(oBs)return;if(isOpen){isOpen=false;stopMic();cHold(false);stopM();syncUI();return;}
-  const ctx=ensureAC(),can=!xm&&lit&&!mDn&&window.isSecureContext&&navigator.mediaDevices&&typeof navigator.mediaDevices.getUserMedia==='function';
+  const ctx=ensureAC();
+  if(!xm&&lit&&frBlk()){mDn=true;mBlk='iframe';}
+  const can=!xm&&lit&&!mDn&&window.isSecureContext&&navigator.mediaDevices&&typeof navigator.mediaDevices.getUserMedia==='function';
   if(!xm&&lit&&!can&&!mBlk)mBlk=(!window.isSecureContext||!navigator.mediaDevices)?'env':'denied';
   if(can&&mGr){isOpen=true;startM();syncUI();startMic(null,ctx);return;}
   let pre=null;
@@ -144,7 +150,7 @@ async function togCard(){
   if(pre&&!xm&&lit)startMic(pre,ctx);
   else{
     if(pre)stp(pre);
-    if(!xm&&lit&&mBlk){tip(mBlk==='iframe'?'当前预览页未开放麦克风，请长按吹灭，或下载 HTML 后用浏览器打开':(mBlk==='env'?'当前环境不支持麦克风，请轻点或长按蜡烛吹灭':'麦克风未授权，可轻点或长按蜡烛吹灭'),6500);return;}
+    if(!xm&&lit&&mBlk){tip('长按蜡烛吹灭许愿',5500);return;}
   }
   syncUI();
 }

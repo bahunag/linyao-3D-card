@@ -31,14 +31,16 @@ const EMP='data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.
 const gU=v=>isU(v)?v:EMP;
 $('ci').src=gU(cfg.coverImageUrl);$('il').src=gU(cfg.insideLeftUrl);$('ir').src=gU(cfg.insideRightUrl);
 const aI=$('ai'),cI=$('ci2'),pI=$('pi'),pS=$('pl0'),eS=$('el0'),pop=$('ps');
-const ly={aW:tf?536:510,aH:tf?224:300,cW:tf?228:240,cH:tf?268:292,pW:tf?152:168,pH:tf?186:198,pX:tf?-184:-224,pY:tf?344:206,eX:tf?186:228,eY:tf?338:202};
+const ly={aW:tf?528:510,aH:tf?396:300,cW:tf?280:240,cH:tf?368:292,pW:tf?160:168,pH:tf?194:198,pX:tf?-194:-224,pY:tf?374:206,eX:tf?194:228,eY:tf?368:202};
 
-/** 按立牌真实比例动态适配防撞间距 */
+/** 按立牌真实比例动态适配防撞间距（上下版拱门齐边大气、人物居中放大） */
 function fitLy(){
   const f=(im,el,mw,mh,wk,hk)=>{if(!im.naturalWidth)return;const s=Math.min(mw/im.naturalWidth,mh/im.naturalHeight);ly[wk]=Math.round(im.naturalWidth*s);ly[hk]=Math.round(im.naturalHeight*s);if(el)Object.assign(el.style,{width:ly[wk]+'px',height:ly[hk]+'px',marginLeft:(-ly[wk]/2)+'px',marginTop:(-ly[hk])+'px'});};
-  f(aI,$('al'),536,tf?224:316,'aW','aH');f(cI,$('cl'),tf?236:262,tf?270:308,'cW','cH');f(pI,null,tf?156:178,tf?188:210,'pW','pH');
+  f(aI,$('al'),tf?528:536,tf?410:316,'aW','aH');
+  if(tf&&aI.naturalWidth&&ly.aW<476){ly.aW=Math.min(516,Math.round(ly.aW*1.15));Object.assign($('al').style,{width:ly.aW+'px',marginLeft:(-ly.aW/2)+'px'});[aI,$('a2'),$('a3')].forEach(x=>x.style.objectFit='fill');}
+  f(cI,$('cl'),tf?330:262,tf?372:308,'cW','cH');f(pI,null,tf?164:178,tf?198:210,'pW','pH');
   pS.style.setProperty('--pw',ly.pW+'px');pS.style.setProperty('--ph',ly.pH+'px');const ph=ly.pW/2;
-  if(tf){ly.pX=-Math.round(Math.max(178,Math.min(264-ph,ly.cW/2+ph*.48+12)));ly.pY=346;ly.eX=Math.round(Math.max(182,Math.min(198,ly.cW/2+46)));ly.eY=342;}
+  if(tf){ly.pX=-Math.round(Math.max(186,Math.min(268-ph,ly.cW/2+ph*.42+10)));ly.pY=374;ly.eX=Math.round(Math.max(188,Math.min(204,ly.cW/2+54)));ly.eY=368;}
   else{ly.pX=-Math.round(Math.max(210,Math.min(400-ph,ly.cW/2+ph+18)));ly.pY=208;ly.eX=Math.round(Math.max(216,Math.min(334,ly.cW/2+88)));ly.eY=204;}
 }
 [aI,cI,pI].forEach(i=>i.addEventListener('load',fitLy));
@@ -78,8 +80,8 @@ function loop3D(ts){
     E.sh.style.transform='translate3d(0,16px,-24px)';E.lf.style.transform=`translateZ(${(3.2*(1-le)).toFixed(2)}px) rotateX(${(-179.4+153.4*le).toFixed(2)}deg)`;E.rf.style.transform='rotateX(0deg)';
     if(p<.58){pop.classList.add('ph');requestAnimationFrame(loop3D);return;}
     pop.classList.remove('ph');const r=Math.sin(((p-.58)/.42)*Math.PI/2),y=Math.max(.04,r).toFixed(4);
-    E.al.style.transform=`translate3d(0,14px,10px) rotateX(-68deg) scaleY(${y})`;E.cl.style.transform=`translate3d(0,240px,16px) rotateX(-70deg) scaleY(${y})`;
-    E.cs.style.opacity=(.28*r).toFixed(3);E.cs.style.transform=`translate3d(0,244px,2px) scale(${(.72+.28*r).toFixed(3)})`;
+    E.al.style.transform=`translate3d(0,16px,10px) rotateX(-68deg) scaleY(${y})`;E.cl.style.transform=`translate3d(0,258px,16px) rotateX(-70deg) scaleY(${y})`;
+    E.cs.style.opacity=(.28*r).toFixed(3);E.cs.style.transform=`translate3d(0,262px,2px) scale(${(.85+.35*r).toFixed(3)})`;
     pS.style.transform=`translate3d(${ly.pX}px,${ly.pY}px,10px)`;E.pl.style.transform=`rotateX(-70deg) scaleY(${y})`;
     eS.style.transform=`translate3d(${ly.eX}px,${ly.eY}px,10px)`;E.el.style.transform=`rotateX(-64deg) scaleY(${y})`;
     requestAnimationFrame(loop3D);return;
